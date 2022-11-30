@@ -6,6 +6,7 @@
 *.ear
 hs_err_pid*
 .gradle
+/build/
 backend/build/
 gradle-app.setting
 !gradle-wrapper.jar
