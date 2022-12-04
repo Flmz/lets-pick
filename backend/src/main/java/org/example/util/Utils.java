@@ -1,5 +1,6 @@
 package org.example.util;
 
+import org.example.exception.CannotParseVideoIdException;
 import org.springframework.validation.BindingResult;
 
 import java.util.regex.Matcher;
@@ -9,14 +10,14 @@ import java.util.stream.Collectors;
 public class Utils {
 
     public static String getVideoId(String youTubeUrl) {
-        String pattern = "(?<=youtu.be/|watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
-        Pattern compiledPattern = Pattern.compile(pattern);
-        Matcher matcher = compiledPattern.matcher(youTubeUrl);
+        String regex = "http(?:s)?:\\/\\/(?:m.)?(?:www\\.)?youtu(?:\\.be\\/|(?:be-nocookie|be)\\.com\\/(?:watch|[\\w]+\\?(?:feature=[\\w]+.[\\w]+\\&)?v=|v\\/|e\\/|embed\\/|user\\/(?:[\\w#]+\\/)+))([^&#?\\n]+)";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(youTubeUrl);
         if (matcher.find()) {
-            return matcher.group();
-        } else {
-            return "error";
+            return matcher.group(1);
+
         }
+        throw new CannotParseVideoIdException(youTubeUrl + "failed");
     }
 
     public static String writeErrorMessage(BindingResult bindingResult) {
