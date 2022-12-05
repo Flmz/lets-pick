@@ -9,30 +9,39 @@ repositories {
     mavenCentral()
 }
 
+
+val lombokVersion = "1.18.24"
+val mapstructVersion = "1.5.3.Final"
+val jUnitVersion = "5.9.0"
+val springBootVersion = "3.0.0"
+
 dependencies {
     //SPRING BOOT
-    implementation("org.springframework.boot:spring-boot-starter-validation:3.0.0")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.0")
-    implementation("org.springframework.boot:spring-boot-starter-web:3.0.0")
-    implementation("org.springframework.boot:spring-boot-starter-security:3.0.0")
+    implementation("org.springframework.boot:spring-boot-starter-validation:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
 
     //SWAGGER
-    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("io.springfox:springfox-boot-starter:${springBootVersion}")
     //POSTGRES
     runtimeOnly("org.postgresql:postgresql:42.5.1")
 
 
     //LOMBOK + MAPSTRUCT
-    implementation("org.mapstruct:mapstruct:1.5.3.Final")
-    implementation("org.projectlombok:lombok:1.18.24")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
+    implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+    implementation("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
     //TESTS
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+//    testImplementation("org.junit.jupiter:junit-jupiter-api:${jUnitVersion}")
+//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}"){
+        exclude(module = "junit")
+    }
+
 }
 
 tasks.getByName<Test>("test") {
