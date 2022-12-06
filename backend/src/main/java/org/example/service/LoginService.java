@@ -17,11 +17,16 @@ import java.util.UUID;
 public class LoginService {
     private static final int COOKIE_AGE_IN_SECONDS = 28800;
     private final UserRepository userRepository;
+    private final ContentService contentService;
 
     @Transactional
     public ResponseEntity<?> saveNewUser(HttpServletResponse response) {
         String cookieUuid = UUID.randomUUID().toString();
-        User userToSave = User.builder().cookie(cookieUuid).build();
+        User userToSave = User.builder()
+                .cookie(cookieUuid)
+                .notWatchedContent(contentService.getAll())
+                .build();
+
         addCookieToResponse(response, cookieUuid);
         userRepository.save(userToSave);
         return ResponseEntity.ok(response);

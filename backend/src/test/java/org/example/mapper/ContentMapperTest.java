@@ -1,7 +1,6 @@
 package org.example.mapper;
 
 import org.example.dto.ContentDTO;
-import org.example.dto.ContentViewResponse;
 import org.example.model.Content;
 import org.example.model.enums.Category;
 import org.example.model.enums.ContentType;
@@ -55,11 +54,12 @@ public class ContentMapperTest {
                     .type(ContentType.IMAGE)
                     .build());
         }};
-        ContentViewResponse contentDtoList = mapper.toListDto(contentList);
-        assertEquals(contentDtoList.contentDTOS().get(0).getUrl(), contentList.get(0).getUrl());
-        assertEquals(contentDtoList.contentDTOS().get(0).getType(), contentList.get(0).getType());
-        assertEquals(contentDtoList.contentDTOS()
-                .get(0).getCategories().get(0)
-                ,contentList.get(0).getCategories().get(0));
+
+        List<ContentDTO> contentDtoList = mapper.toListDto(contentList);
+        assertEquals(contentDtoList.get(0).getUrl(), contentList.get(0).getUrl());
+        assertEquals(contentDtoList.get(0).getType(), contentList.get(0).getType());
+        assertEquals(contentDtoList
+                        .get(0).getCategories().get(0)
+                , contentList.get(0).getCategories().get(0));
     }
 }

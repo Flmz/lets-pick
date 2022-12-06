@@ -1,6 +1,8 @@
 package org.example.model.enums;
 
-public enum Category {
+import java.io.Serializable;
+
+public enum Category implements Serializable {
     LIFE_HACK, SPORT, CHILDREN, MEM,
     STAND_UP
 }

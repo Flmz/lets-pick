@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.dto.ContentDTO;
-import org.example.mapper.ContentMapper;
 import org.example.model.Content;
 import org.example.model.enums.Category;
 import org.example.model.enums.ContentType;
@@ -15,7 +14,7 @@ public class DataTest {
     static {
         contentDTO.setType(ContentType.VIDEO);
         contentDTO.setUrl("Z9dvZyEofAg");
-        contentDTO.setCategories(new ArrayList<>(){{
+        contentDTO.setCategories(new ArrayList<>() {{
             add(Category.STAND_UP);
             add(Category.MEM);
         }});
