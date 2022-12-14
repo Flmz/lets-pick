@@ -1,4 +1,5 @@
-package org.example.strategy;
+package org.example.strategy.save;
+
 
 import org.example.model.enums.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class PublisherFactory {
-    private final Map<ContentType, ContentPublisher> strategies;
+public class SaverContentFactory {
+    private final Map<ContentType, ContentSaver> strategies;
 
     @Autowired
-    public PublisherFactory(Set<ContentPublisher> strategySet) {
+    public SaverContentFactory(Set<ContentSaver> strategySet) {
         this.strategies = strategySet.stream().collect(Collectors.toMap(
-           ContentPublisher::getContentType,
-           selector -> selector
+                ContentSaver::getContentType,
+                saver -> saver
         ));
     }
 
-    public ContentPublisher findStrategy(ContentType contentType) {
+    public ContentSaver findStrategy(ContentType contentType) {
         return strategies.get(contentType);
     }
 

@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @AllArgsConstructor
 public class ContentValidator implements Validator {
 
-    private final ContentService contentService;
+    private final ContentService service;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -22,7 +22,7 @@ public class ContentValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Content content = (Content) target;
 
-        if (contentService.findByUrl(content.getUrl()).isPresent()) {
+        if (service.findByUrl(content.getUrl()).isPresent()) {
             errors.rejectValue("url", "", "This content already in db");
         }
     }

@@ -3,11 +3,11 @@ package org.example.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.example.model.enums.Category;
 import org.example.model.enums.ContentType;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -15,19 +15,24 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "content")
+@Table
+@EqualsAndHashCode
+@NaturalIdCache
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@ToString
 public class Content {
-
-    @Enumerated(EnumType.STRING)
-    ContentType type;
-    @NotNull(message = "content url cannot be null")
-    String url;
-    List<Category> categories = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Exclude
     private Long id;
 
-    public void addCategory(Category category) {
-        categories.add(category);
-    }
+    @Enumerated(EnumType.STRING)
+    @EqualsAndHashCode.Exclude
+    @Column(nullable = false)
+    private ContentType type;
+
+    @NotNull(message = "content url cannot be null")
+    @NaturalId
+    @Column(unique = true, nullable = false)
+    private String url;
 }

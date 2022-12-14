@@ -9,7 +9,6 @@ repositories {
     mavenCentral()
 }
 
-
 val lombokVersion = "1.18.24"
 val mapstructVersion = "1.5.3.Final"
 val jUnitVersion = "5.9.0"
@@ -22,10 +21,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
 
     //SWAGGER
-    implementation("io.springfox:springfox-boot-starter:${springBootVersion}")
+
     //POSTGRES
     runtimeOnly("org.postgresql:postgresql:42.5.1")
-
 
     //LOMBOK + MAPSTRUCT
     implementation("org.mapstruct:mapstruct:${mapstructVersion}")
@@ -35,15 +33,11 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
     //TESTS
-//    testImplementation("org.junit.jupiter:junit-jupiter-api:${jUnitVersion}")
-//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}"){
-        exclude(module = "junit")
-    }
-
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.0.0")
+    testImplementation("org.testcontainers:postgresql:1.17.6")
+    testImplementation("org.testcontainers:junit-jupiter:1.17.6")
 }
 
-tasks.getByName<Test>("test") {
+tasks.test{
     useJUnitPlatform()
 }
