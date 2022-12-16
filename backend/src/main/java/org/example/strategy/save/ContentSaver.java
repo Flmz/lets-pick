@@ -7,6 +7,5 @@ public interface ContentSaver {
     Content save(Content contentToSave);
 
     ContentType getContentType();
-
 }
 

@@ -11,11 +11,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,11 +37,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class LoginControllerTest extends TestWithPostgresContainer {
+    private final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
     private MockMvc mockMvc;
-    private final static MediaType mediaType = MediaType.APPLICATION_JSON;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @Autowired
     private UserRepository userRepository;
 
@@ -64,12 +60,12 @@ public class LoginControllerTest extends TestWithPostgresContainer {
     @Test
     @Order(1)
     public void givenRequestWithBadCookies_shouldReturnStatusForbidden_andNotSaveUser() throws Exception {
-        Cookie cookie = new Cookie(UUID.randomUUID().toString(), "");
+        Cookie cookie = new Cookie("lets-pick", UUID.randomUUID().toString());
         mockMvc.perform(post("/login")
                         .cookie(cookie))
                 .andExpect(status().isForbidden())
                 .andExpect(content().json(String.format("{'message':'User with this cookies %s not registered'}"
-                        ,cookie.getName())))
+                        , cookie.getValue())))
                 .andDo(print());
         Optional<User> user = userRepository.findById(1L);
         assertTrue(user.isEmpty());

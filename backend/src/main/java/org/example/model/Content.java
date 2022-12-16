@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.example.model.enums.ContentType;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
@@ -16,23 +17,22 @@ import org.hibernate.annotations.NaturalIdCache;
 @Setter
 @Entity
 @Table
-@EqualsAndHashCode
-@NaturalIdCache
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
+@EqualsAndHashCode(of = "url")
+@NaturalIdCache
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Content {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @EqualsAndHashCode.Exclude
     @Column(nullable = false)
     private ContentType type;
 
     @NotNull(message = "content url cannot be null")
     @NaturalId
     @Column(unique = true, nullable = false)
-    private String url;
+    private java.lang.String url;
 }

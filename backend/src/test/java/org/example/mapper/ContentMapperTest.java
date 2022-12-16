@@ -1,6 +1,6 @@
 package org.example.mapper;
 
-import org.example.dto.ContentDTO;
+import org.example.dto.ContentResponse;
 import org.example.model.Content;
 import org.junit.jupiter.api.Test;
 
@@ -15,28 +15,28 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ContentMapperTest {
     private final ContentMapper mapper = ContentMapper.CONTENT_MAPPER;
-    private final ContentDTO contentDTO = ContentDTO.builder()
+    private final ContentResponse contentResponse = ContentResponse.builder()
             .url(UUID.randomUUID().toString())
             .type(getRandomType()).build();
 
     @Test
     public void shouldConvertToEntity() {
-        Content content = mapper.toEntity(contentDTO);
-        assertEquals(content.getUrl(), contentDTO.getUrl());
-        assertEquals(content.getType(), contentDTO.getType());
+        Content content = mapper.toEntity(contentResponse);
+        assertEquals(content.getUrl(), contentResponse.getUrl());
+        assertEquals(content.getType(), contentResponse.getType());
     }
 
     @Test
     public void idContentShouldBeNull() {
-        Content content = mapper.toEntity(contentDTO);
+        Content content = mapper.toEntity(contentResponse);
         assertNull(content.getId());
     }
 
     @Test
     public void shouldConvertToDTO() {
-        ContentDTO contentDTO = mapper.toDTO(content1);
-        assertEquals(contentDTO.getType(), content1.getType());
-        assertEquals(contentDTO.getUrl(), content1.getUrl());
+        ContentResponse contentResponse = mapper.toDTO(content1);
+        assertEquals(contentResponse.getType(), content1.getType());
+        assertEquals(contentResponse.getUrl(), content1.getUrl());
     }
 
     @Test
@@ -46,8 +46,8 @@ public class ContentMapperTest {
             add(content2);
         }};
 
-        List<ContentDTO> contentDtoList = mapper.toListDto(contentList);
-        assertEquals(contentDtoList.get(0).getUrl(), contentList.get(0).getUrl());
-        assertEquals(contentDtoList.get(0).getType(), contentList.get(0).getType());
+        List<ContentResponse> contentResponseList = mapper.toListDto(contentList);
+        assertEquals(contentResponseList.get(0).getUrl(), contentList.get(0).getUrl());
+        assertEquals(contentResponseList.get(0).getType(), contentList.get(0).getType());
     }
 }

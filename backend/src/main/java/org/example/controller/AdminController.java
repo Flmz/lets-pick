@@ -4,8 +4,7 @@ package org.example.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-
-import org.example.dto.ContentDTO;
+import org.example.dto.ContentResponse;
 import org.example.exception.ContentSaveException;
 import org.example.mapper.ContentMapper;
 import org.example.model.Content;
@@ -29,11 +28,11 @@ public class AdminController {
     private final ContentService contentService;
 
     @PostMapping
-    public ContentDTO save(@RequestBody @Valid ContentDTO contentDTO, BindingResult bindingResult
-            , HttpServletRequest request) {
+    public ContentResponse save(@CookieValue(name = "lets-pick") String cookieValue, @RequestBody @Valid ContentResponse contentResponse,
+                                BindingResult bindingResult) {
 
-        checkCookiesNull(request);
-        Content content = mapper.toEntity(contentDTO);
+        checkCookiesNull(cookieValue);
+        Content content = mapper.toEntity(contentResponse);
         validator.validate(content, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -43,7 +42,7 @@ public class AdminController {
     }
 
     @GetMapping
-    public List<ContentDTO> index() {
+    public List<ContentResponse> index() {
         return mapper.toListDto(contentService.getAll());
     }
 

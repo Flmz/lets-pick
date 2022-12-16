@@ -14,20 +14,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserContent {
+
     @Transient
     List<UserContent> listOf = new ArrayList<>();
     @EmbeddedId
     @EqualsAndHashCode.Exclude
     private UserContentId id = new UserContentId();
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @MapsId("userId")
     private User user;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId("contentId")
     private Content content;
     private boolean isWatched = false;
-
-    private int liked = -1;
+    @Column(columnDefinition = "smallint")
+    private int liked = 0;
 
     public UserContent(User user, Content content) {
         this.user = user;
@@ -39,12 +40,6 @@ public class UserContent {
         for (Content content : allContent) {
             this.listOf.add(new UserContent(user, content));
             this.id = new UserContentId(user.getId(), content.getId());
-        }
-    }
-
-    public void prepareContentForUser(User user, List<Content> contentList) {
-        for (Content content : contentList) {
-            this.listOf.add(new UserContent(user, content));
         }
     }
 }

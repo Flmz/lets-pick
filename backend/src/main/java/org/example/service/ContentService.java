@@ -21,10 +21,10 @@ public class ContentService {
 
     @Transactional
     public Content save(Content contentToSave) {
-        return getSelector(contentToSave.getType()).save(contentToSave);
+        return getSaver(contentToSave.getType()).save(contentToSave);
     }
 
-    public Optional<Content> findByUrl(String contentUrl) {
+    public Optional<Content> findByUrl(java.lang.String contentUrl) {
         return contentRepository.findByUrl(contentUrl);
     }
 
@@ -37,7 +37,8 @@ public class ContentService {
         contentRepository.deleteById(id);
     }
 
-    private ContentSaver getSelector(ContentType contentType) {
+
+    private ContentSaver getSaver(ContentType contentType) {
         return factory.findStrategy(contentType);
     }
 }

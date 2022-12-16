@@ -1,6 +1,5 @@
 package org.example.util;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.example.exception.UserNotFoundException;
 import org.springframework.validation.BindingResult;
 
@@ -14,13 +13,9 @@ public class Utils {
                 .collect(Collectors.joining());
     }
 
-    public static void checkCookiesNull(HttpServletRequest request) {
-        if (request.getCookies() == null) {
+    public static void checkCookiesNull(String cookieName) {
+        if (cookieName == null) {
             throw new UserNotFoundException();
         }
-    }
-
-    public static String getCookieUUID(HttpServletRequest request) {
-        return request.getCookies()[0].getName();
     }
 }

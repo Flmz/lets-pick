@@ -43,7 +43,7 @@ public class LoginService {
     }
 
     private void addCookieToResponse(HttpServletResponse response, String cookieUuid) {
-        Cookie newCookie = new Cookie(cookieUuid, "");
+        Cookie newCookie = new Cookie("lets-pick", cookieUuid);
         newCookie.setMaxAge(COOKIE_AGE_IN_SECONDS);
         response.addCookie(newCookie);
     }

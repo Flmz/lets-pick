@@ -59,7 +59,8 @@ public class Data {
         content11 = Content.builder().url("http://" + UUID.randomUUID()).type(ContentType.VIDEO).build();
         content12 = Content.builder().url("http://" + UUID.randomUUID()).type(ContentType.VIDEO).build();
         content13 = Content.builder().url("http://" + UUID.randomUUID()).type(ContentType.IMAGE).build();
-        CONTENT_VIDEO_URL = Content.builder().url("https://www.youtube.com/watch?v=uV8j4_Xcg-s").type(ContentType.VIDEO).build();
+        CONTENT_VIDEO_URL = Content.builder().url("https://www.youtube.com/watch?v=uV8j4_Xcg-s")
+                .type(ContentType.VIDEO).build();
 
         contentList = List.of(content1, content2, content3,
                 content4, content5, content6, content7, content8, content9, content10

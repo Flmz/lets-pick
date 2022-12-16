@@ -16,15 +16,14 @@ public class VideoContentSaver implements ContentSaver {
 
     private final ContentRepository contentRepository;
 
-    private static String getVideoId(String youTubeUrl) {
-        String regex = "http(?:s)?:\\/\\/(?:m.)?(?:www\\.)?youtu(?:\\.be\\/|(?:be-nocookie|be)\\.com\\/" +
+    private static java.lang.String getVideoId(java.lang.String youTubeUrl) {
+        java.lang.String regex = "http(?:s)?:\\/\\/(?:m.)?(?:www\\.)?youtu(?:\\.be\\/|(?:be-nocookie|be)\\.com\\/" +
                 "(?:watch|[\\w]+\\?(?:feature=[\\w]+.[\\w]+\\&)?v=|v\\/|e\\/|embed\\/|user\\/(?:[\\w#]+\\/)+))" +
                 "([^&#?\\n]+)";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(youTubeUrl);
         if (matcher.find()) {
             return matcher.group(1);
-
         }
         throw new CannotParseVideoIdException(youTubeUrl + "failed");
     }

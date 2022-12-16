@@ -21,6 +21,11 @@ public class TestWithPostgresContainer {
     @Container
     public static final PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:11-bullseye");
 
+    @Test
+    void testContainerIsRunning() {
+        assertTrue(container.isRunning());
+    }
+
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
         public void initialize(@NotNull ConfigurableApplicationContext applicationContext) {
@@ -30,10 +35,5 @@ public class TestWithPostgresContainer {
                     "spring.datasource.password=" + container.getPassword()
             ).applyTo(applicationContext);
         }
-    }
-
-    @Test
-    void testContainerIsRunning() {
-        assertTrue(container.isRunning());
     }
 }

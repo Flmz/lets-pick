@@ -1,21 +1,19 @@
 package org.example.model;
 
 import jakarta.persistence.Embeddable;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@NoArgsConstructor
 public class UserContentId implements Serializable {
     private Long userId;
 
     private Long contentId;
 
-    public UserContentId() {
-    }
-
     public UserContentId(Long userId, Long contentId) {
-        super();
         this.userId = userId;
         this.contentId = contentId;
     }

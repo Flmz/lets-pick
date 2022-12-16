@@ -11,13 +11,14 @@ import lombok.*;
 @Getter
 @Entity
 @Table(name = "usr")
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "cookie")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Exclude
     private Long id;
+
     @NotNull
+    @Column
     private String cookie;
 }

@@ -16,21 +16,31 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
     Optional<Content> findByUrl(String url);
 
     @Query(nativeQuery = true, value = "select" + VARIABLES + """
-            from content c
-                join user_content uc on c.id = uc.content_id
-                where uc.user_id = :id and c.type = :type and
-                     uc.is_watched = false ORDER BY random() limit 2
+            FROM content c
+                JOIN user_content uc
+                    ON c.id = uc.content_id
+                        WHERE uc.user_id = :id
+                         AND c.type = :type
+                         AND uc.is_watched = false
+                              ORDER BY random() limit 2
             """)
     List<Content> findNotWatchedContentByUserId(@Param("id") Long id, @Param("type") String type);
 
     @Query(nativeQuery = true, value = "select" + VARIABLES + """
-                        from content c join user_content uc on
-                                c.id = uc.content_id where
-                                  uc.user_id = :id
-                                    and uc.liked > 0
-                                        and c.type = :type ORDER BY random() limit 1
+                        FROM content c
+                            JOIN user_content uc
+                             ON c.id = uc.content_id
+                              WHERE uc.user_id = :id
+                                 AND c.type = :type ORDER BY random() limit 2
             """)
-    Optional<Content> findSecondContent(@Param("id") Long id, @Param("type") String type);
+    List<Content> findRandomContent(@Param("id") Long id, @Param("type") String contentTypeName);
 
-//    Content findAnotherContent(@Param("id") Long id, @Param("type") String type);
+    @Query(nativeQuery = true, value = """
+                    UPDATE user_content us
+                        SET is_watched = true, liked = :liked
+                            FROM content c
+                                WHERE c.url = :url
+                                    AND us.user_id = :user_id
+            """)
+    void setWatched(@Param("url") String url, @Param("liked") Integer liked, @Param("user_id") Long userId);
 }

@@ -1,6 +1,6 @@
 package org.example.mapper;
 
-import org.example.dto.ContentDTO;
+import org.example.dto.ContentResponse;
 import org.example.model.Content;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,11 +15,11 @@ public interface ContentMapper {
     ContentMapper CONTENT_MAPPER = Mappers.getMapper(ContentMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    Content toEntity(ContentDTO contentDTO);
+    Content toEntity(ContentResponse contentResponse);
 
-    ContentDTO toDTO(Content content);
+    ContentResponse toDTO(Content content);
 
-    default List<ContentDTO> toListDto(List<Content> contentList) {
+    default List<ContentResponse> toListDto(List<Content> contentList) {
         return new ArrayList<>((contentList
                 .stream()
                 .map(this::toDTO)
