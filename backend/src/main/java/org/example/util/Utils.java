@@ -9,13 +9,13 @@ public class Utils {
 
     public static String writeErrorMessage(BindingResult bindingResult) {
         return bindingResult.getFieldErrors().stream()
-                .map(fieldError -> fieldError.getField() + "-" + fieldError.getDefaultMessage() + ".\n")
+                .map(fieldError -> String
+                        .format("%s - %s + .\n", fieldError.getField(), fieldError.getDefaultMessage()))
                 .collect(Collectors.joining());
     }
 
     public static void checkCookiesNull(String cookieName) {
-        if (cookieName == null) {
-            throw new UserNotFoundException();
-        }
+        if (cookieName == null) throw new UserNotFoundException();
+
     }
 }

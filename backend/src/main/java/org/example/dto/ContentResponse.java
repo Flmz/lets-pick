@@ -11,7 +11,7 @@ import org.example.model.enums.ContentType;
 public class ContentResponse {
     @JsonProperty("url")
     @NotNull
-    java.lang.String url;
+    String url;
 
     @JsonProperty("type")
     ContentType type;

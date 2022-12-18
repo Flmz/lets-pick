@@ -37,14 +37,14 @@ public class Data {
 
 
     static {
-        user1 = User.builder().cookie(UUID.randomUUID().toString()).build();
-        user2 = User.builder().cookie(UUID.randomUUID().toString()).build();
-        user3 = User.builder().cookie(UUID.randomUUID().toString()).build();
-        user4 = User.builder().cookie(UUID.randomUUID().toString()).build();
-        user5 = User.builder().cookie(UUID.randomUUID().toString()).build();
-        user6 = User.builder().cookie(UUID.randomUUID().toString()).build();
-        user7 = User.builder().cookie(UUID.randomUUID().toString()).build();
-        user8 = User.builder().cookie(UUID.randomUUID().toString()).build();
+        user1 = new User(UUID.randomUUID().toString());
+        user2 = new User(UUID.randomUUID().toString());
+        user3 = new User(UUID.randomUUID().toString());
+        user4 = new User(UUID.randomUUID().toString());
+        user5 = new User(UUID.randomUUID().toString());
+        user6 = new User(UUID.randomUUID().toString());
+        user7 = new User(UUID.randomUUID().toString());
+        user8 = new User(UUID.randomUUID().toString());
 
         content1 = Content.builder().url("http://" + UUID.randomUUID()).type(ContentType.VIDEO).build();
         content2 = Content.builder().url("http://" + UUID.randomUUID()).type(ContentType.IMAGE).build();

@@ -27,9 +27,7 @@ public class LoginService {
     @Transactional
     public ResponseEntity<?> saveNewUser(HttpServletResponse response) {
         String cookieUuid = UUID.randomUUID().toString();
-        User userToSave = User.builder()
-                .cookie(cookieUuid)
-                .build();
+        User userToSave = new User(cookieUuid);
 
         addCookieToResponse(response, cookieUuid);
         userRepository.save(userToSave);

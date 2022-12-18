@@ -9,7 +9,7 @@ import org.example.model.enums.ContentType;
 @NoArgsConstructor
 public class SimpleContent {
     @JsonProperty("url")
-    private java.lang.String url;
+    private String url;
 
     @JsonProperty("type")
     private ContentType type;

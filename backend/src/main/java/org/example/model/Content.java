@@ -15,10 +15,10 @@ import org.hibernate.annotations.NaturalIdCache;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table
 @ToString
 @EqualsAndHashCode(of = "url")
+@Entity
+@Table
 @NaturalIdCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Content {
@@ -34,5 +34,5 @@ public class Content {
     @NotNull(message = "content url cannot be null")
     @NaturalId
     @Column(unique = true, nullable = false)
-    private java.lang.String url;
+    private String url;
 }

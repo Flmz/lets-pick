@@ -5,9 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Entity
 @Table(name = "usr")
@@ -21,4 +19,8 @@ public class User {
     @NotNull
     @Column
     private String cookie;
+
+    public User(String cookie) {
+        this.cookie = cookie;
+    }
 }
