@@ -1,8 +1,6 @@
 package org.example.controller;
 
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.dto.ContentResponse;
 import org.example.exception.ContentSaveException;
@@ -13,6 +11,7 @@ import org.example.validator.ContentValidator;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.example.util.Utils.checkCookiesNull;

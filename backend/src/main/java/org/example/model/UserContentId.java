@@ -1,8 +1,8 @@
 package org.example.model;
 
-import jakarta.persistence.Embeddable;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 

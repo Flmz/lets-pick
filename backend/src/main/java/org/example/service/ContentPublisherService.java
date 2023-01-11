@@ -23,19 +23,24 @@ public class ContentPublisherService {
     private final UserService userService;
     private final PublisherFactory factory;
 
-    public List<ContentResponse> startApp(java.lang.String cookies, java.lang.String type, List<ContentResponse> watchedContent) {
+    public List<ContentResponse> startApp(String cookies, String type) {
         String contentTypeName = parseTypeParam(type).name();
         User currentUser = userService.findUserByCookie(cookies);
         long currentUserId = currentUser.getId();
 
-        if (watchedContent == null) {
-            PublisherSelector selector = getSelector(SIMPLE_CONTENT_SELECT);
-            return selector.findContentForView(currentUserId, contentTypeName, null);
-        }
+        PublisherSelector selector = getSelector(SIMPLE_CONTENT_SELECT);
+        return selector.findContentForView(currentUserId, contentTypeName);
+
+    }
+
+    public List<ContentResponse> chooseNextContent(String cookies, String type, List<ContentResponse> watchedContent) {
+        String contentTypeName = parseTypeParam(type).name();
+        User currentUser = userService.findUserByCookie(cookies);
+        long currentUserId = currentUser.getId();
 
         PublisherSelector selector = getSelector(NEXT_CONTENT_SELECT);
-        return selector.findContentForView(currentUserId, contentTypeName, watchedContent);
 
+        return selector.findContentForView(currentUserId, contentTypeName, watchedContent);
     }
 
     private ContentType parseTypeParam(java.lang.String type) {

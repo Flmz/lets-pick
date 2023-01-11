@@ -20,9 +20,9 @@ public interface ContentMapper {
     ContentResponse toDTO(Content content);
 
     default List<ContentResponse> toListDto(List<Content> contentList) {
-        return new ArrayList<>((contentList
+        return new ArrayList<>(contentList
                 .stream()
                 .map(this::toDTO)
-                .toList()));
+                .toList());
     }
 }

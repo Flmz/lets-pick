@@ -29,6 +29,11 @@ public class SimpleContentPublish implements PublisherSelector {
     }
 
     @Override
+    public List<ContentResponse> findContentForView(Long currentUserId, String requestedUserContentType) {
+        return null;
+    }
+
+    @Override
     public PublisherSelectType getStrategyType() {
         return PublisherSelectType.SIMPLE_CONTENT_SELECT;
     }

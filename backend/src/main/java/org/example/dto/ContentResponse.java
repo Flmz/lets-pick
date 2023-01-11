@@ -1,10 +1,11 @@
 package org.example.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Value;
 import org.example.model.enums.ContentType;
+
+import javax.validation.constraints.NotNull;
 
 @Value
 @Builder
@@ -15,5 +16,4 @@ public class ContentResponse {
 
     @JsonProperty("type")
     ContentType type;
-
 }

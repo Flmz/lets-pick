@@ -16,8 +16,8 @@ public class VideoContentSaver implements ContentSaver {
 
     private final ContentRepository contentRepository;
 
-    private static java.lang.String getVideoId(java.lang.String youTubeUrl) {
-        java.lang.String regex = "http(?:s)?:\\/\\/(?:m.)?(?:www\\.)?youtu(?:\\.be\\/|(?:be-nocookie|be)\\.com\\/" +
+    private static String getVideoId(String youTubeUrl) {
+        String regex = "http(?:s)?:\\/\\/(?:m.)?(?:www\\.)?youtu(?:\\.be\\/|(?:be-nocookie|be)\\.com\\/" +
                 "(?:watch|[\\w]+\\?(?:feature=[\\w]+.[\\w]+\\&)?v=|v\\/|e\\/|embed\\/|user\\/(?:[\\w#]+\\/)+))" +
                 "([^&#?\\n]+)";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);

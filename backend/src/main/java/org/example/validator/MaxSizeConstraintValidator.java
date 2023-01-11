@@ -1,9 +1,9 @@
 package org.example.validator;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import org.example.dto.ContentResponse;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 public class MaxSizeConstraintValidator implements ConstraintValidator<ListSizeConstraint, List<ContentResponse>> {

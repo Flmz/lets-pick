@@ -37,7 +37,6 @@ public class ContentService {
         contentRepository.deleteById(id);
     }
 
-
     private ContentSaver getSaver(ContentType contentType) {
         return factory.findStrategy(contentType);
     }

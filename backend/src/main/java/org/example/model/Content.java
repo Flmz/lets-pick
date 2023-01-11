@@ -1,13 +1,14 @@
 package org.example.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.example.model.enums.ContentType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @Builder

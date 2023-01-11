@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class NextContentPublish implements PublisherSelector {
+
     private final ContentRepository contentRepository;
     private final ContentMapper mapper;
 
@@ -31,6 +32,11 @@ public class NextContentPublish implements PublisherSelector {
         return preparedNotWatchedContent.size() == 2 ?
                 mapper.toListDto(preparedNotWatchedContent) :
                 mapper.toListDto(contentRepository.findRandomContent(currentUserId, contentTypeName));
+    }
+
+    @Override
+    public List<ContentResponse> findContentForView(Long currentUserId, String requestedUserContentType) {
+        return null;
     }
 
     @Override

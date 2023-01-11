@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import org.example.dto.ContentResponse;
 import org.example.exception.ErrorResponse;
@@ -12,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -22,10 +22,10 @@ public class MainController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ContentResponse> startApp(@CookieValue(name = "lets-pick") String cookieValue,
+    public List<ContentResponse> startApp(@CookieValue(name = "lets-pick", required = false) String cookieValue,
                                           @RequestParam(value = "type", required = false) String type) {
         Utils.checkCookiesNull(cookieValue);
-        return contentPublisherService.startApp(cookieValue, type, null);
+        return contentPublisherService.startApp(cookieValue, type);
     }
 
     @PostMapping("/next")
@@ -34,8 +34,7 @@ public class MainController {
                                              @RequestParam(value = "type", required = false) String type,
                                              @RequestBody @ListSizeConstraint List<ContentResponse> watchedContent) {
         Utils.checkCookiesNull(cookieValue);
-
-        return contentPublisherService.startApp(cookieValue, type, watchedContent);
+        return contentPublisherService.chooseNextContent(cookieValue, type, watchedContent);
     }
 
     @ExceptionHandler(NoSuchContentTypeException.class)

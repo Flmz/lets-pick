@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.example.exception.BadCookieCredentialsException;
 import org.example.exception.ErrorResponse;
@@ -10,6 +9,8 @@ import org.example.util.Utils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 @RestController

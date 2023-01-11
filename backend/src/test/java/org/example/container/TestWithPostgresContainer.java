@@ -13,7 +13,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ActiveProfiles("test")
 @ContextConfiguration(initializers = {TestWithPostgresContainer.Initializer.class})
 @Testcontainers
 public class TestWithPostgresContainer {

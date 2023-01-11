@@ -1,8 +1,8 @@
 package org.example.model;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,26 +15,21 @@ import java.util.List;
 @AllArgsConstructor
 public class UserContent {
 
+    @Transient
+    List<UserContent> listOf = new ArrayList<>();
     @EmbeddedId
     @EqualsAndHashCode.Exclude
     private UserContentId id = new UserContentId();
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-
     @MapsId("userId")
     private User user;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @MapsId("contentId")
     private Content content;
-
     private boolean isWatched = false;
-
     @Column(columnDefinition = "smallint")
     private int liked = 0;
-
-    @Transient
-    List<UserContent> listOf = new ArrayList<>();
 
     public UserContent(User user, Content content) {
         this.user = user;

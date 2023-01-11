@@ -8,5 +8,7 @@ public interface PublisherSelector {
     List<ContentResponse> findContentForView(Long currentUserId, String requestedUserContentType
             , List<ContentResponse> watchedContent);
 
+    List<ContentResponse> findContentForView(Long currentUserId, String requestedUserContentType);
+
     PublisherSelectType getStrategyType();
 }
