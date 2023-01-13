@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 public class ContentMapperTest {
-    private final ContentMapper mapper = ContentMapper.CONTENT_MAPPER;
+    private final ContentMapper mapper = ContentMapper.INSTANCE;
     private final ContentResponse contentResponse = ContentResponse.builder()
             .url(UUID.randomUUID().toString())
             .type(getRandomType()).build();

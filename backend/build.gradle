@@ -33,10 +33,6 @@ dependencies {
     implementation 'io.swagger.core.v3:swagger-annotations:2.2.1'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
 
-
-    //POSTGRES
-    runtimeOnly 'org.postgresql:postgresql'
-
     //LOMBOK + MAPSTRUCT
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
@@ -48,7 +44,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
     testImplementation 'org.testcontainers:postgresql:1.17.6'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
+
+    //DB
+    runtimeOnly 'org.postgresql:postgresql'
 }
+
 
 test{
     useJUnitPlatform()

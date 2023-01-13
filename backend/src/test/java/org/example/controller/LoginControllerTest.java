@@ -1,7 +1,5 @@
 package org.example.controller;
 
-import jakarta.servlet.http.Cookie;
-import org.example.container.TestWithPostgresContainer;
 import org.example.model.Content;
 import org.example.model.User;
 import org.example.repository.ContentRepository;
@@ -10,34 +8,32 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.servlet.http.Cookie;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.example.Data.contentList;
 import static org.example.Data.getRandomType;
+import static org.example.container.EnablePostgresTestContainerContextCustomizerFactory.EnabledPostgresTestContainer;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
+@EnabledPostgresTestContainer
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginControllerTest extends TestWithPostgresContainer {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+public class LoginControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -67,10 +63,10 @@ public class LoginControllerTest extends TestWithPostgresContainer {
                 .andExpect(content().json(String.format("{'message':'User with this cookies %s not registered'}"
                         , cookie.getValue())))
                 .andDo(print());
-        Optional<User> user = userRepository.findById(1L);
+
+        Optional<User> user = userRepository.findByCookie(cookie.getValue());
         assertTrue(user.isEmpty());
     }
-
 
     @Test
     @Order(3)
