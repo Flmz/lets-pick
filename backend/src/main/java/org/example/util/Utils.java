@@ -3,6 +3,7 @@ package org.example.util;
 import org.example.exception.UserNotFoundException;
 import org.springframework.validation.BindingResult;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -14,8 +15,13 @@ public class Utils {
                 .collect(Collectors.joining());
     }
 
+    public static String writeErrorMessage(List<String> errorMessages) {
+        return errorMessages.stream()
+                .map(message -> String.format("%s.", message))
+                .collect(Collectors.joining());
+    }
+
     public static void checkCookiesNull(String cookieName) {
         if (cookieName == null) throw new UserNotFoundException();
-
     }
 }

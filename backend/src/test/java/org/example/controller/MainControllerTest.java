@@ -3,14 +3,12 @@ package org.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.dto.ContentResponse;
-import org.example.model.enums.ContentType;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -21,7 +19,7 @@ import java.util.UUID;
 
 import static org.example.container.EnablePostgresTestContainerContextCustomizerFactory.EnabledPostgresTestContainer;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -32,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(scripts = "classpath:/init.sql")
 @EnabledPostgresTestContainer
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MainControllerTest {
@@ -43,20 +40,41 @@ public class MainControllerTest {
 
     @Test
     public void registerNewUser_ThisUserStartPlay_ShouldReturnTwoContentsWithSameTypes() throws Exception {
-        MvcResult result = mockMvc.perform(post("/login"))
-                .andDo(print())
-                .andReturn();
-        Cookie cookie = result.getResponse().getCookie("lets-pick");
-        MvcResult result1 = mockMvc.perform(get("/")
+
+        Cookie cookie = registerUserAndReturnCookie();
+
+        MvcResult result = mockMvc.perform(get("/")
                         .cookie(cookie))
                 .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         jsonPath("$", hasSize(2)
                         )).andReturn();
-        ContentResponse[] bodyResponse = objectMapper.readValue(result1.getResponse().getContentAsString(), ContentResponse[].class);
-        ContentType type = bodyResponse[0].getType();
-        assertEquals(type, bodyResponse[1].getType());
+        ContentResponse[] bodyResponse = objectMapper.readValue(result.getResponse().getContentAsString(), ContentResponse[].class);
+        assertNotNull(bodyResponse[0].getUrl());
+        assertNotNull(bodyResponse[1].getUrl());
+        assertEquals(bodyResponse[0].getType(), bodyResponse[1].getType());
+        assertNotEquals(bodyResponse[0].getUrl(), bodyResponse[1].getUrl());
+    }
+
+    @Test
+    public void ShouldAlwaysReturnDifferentContentUrlButSingleTypes() throws Exception {
+        Cookie cookie = registerUserAndReturnCookie();
+
+        for (int i = 0; i < 1000; i++) {
+            MvcResult result = mockMvc.perform(get("/")
+                            .cookie(cookie))
+                    .andDo(print())
+                    .andExpectAll(
+                            status().isOk(),
+                            jsonPath("$", hasSize(2)
+                            )).andReturn();
+            ContentResponse[] bodyResponse = objectMapper.readValue(result.getResponse().getContentAsString(), ContentResponse[].class);
+            assertNotNull(bodyResponse[0].getUrl());
+            assertNotNull(bodyResponse[1].getUrl());
+            assertEquals(bodyResponse[0].getType(), bodyResponse[1].getType());
+            assertNotEquals(bodyResponse[0].getUrl(), bodyResponse[1].getUrl());
+        }
     }
 
     @Test
@@ -64,5 +82,12 @@ public class MainControllerTest {
         Cookie cookie = new Cookie("test", UUID.randomUUID().toString());
         mockMvc.perform(get("/").cookie(cookie))
                 .andExpect(status().isForbidden());
+    }
+
+    private Cookie registerUserAndReturnCookie() throws Exception {
+        MvcResult result = mockMvc.perform(post("/login"))
+                .andDo(print())
+                .andReturn();
+        return result.getResponse().getCookie("lets-pick");
     }
 }

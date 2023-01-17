@@ -37,7 +37,7 @@ public class LoginService {
 
     private void createPipelineForUser(User currentUser) {
         UserContent pipeline = new UserContent(currentUser, contentRepository.findAll());
-        userContentRepository.saveAll(pipeline.getListOf());
+        userContentRepository.saveAll(pipeline.getContentForUser());
     }
 
     private void addCookieToResponse(HttpServletResponse response, String cookieUuid) {

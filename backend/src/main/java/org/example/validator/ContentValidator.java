@@ -1,6 +1,7 @@
 package org.example.validator;
 
 import lombok.AllArgsConstructor;
+import org.example.dto.ContentResponse;
 import org.example.model.Content;
 import org.example.service.ContentService;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,9 @@ public class ContentValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Content content = (Content) target;
+        ContentResponse contentResponse = (ContentResponse) target;
 
-        if (service.findByUrl(content.getUrl()).isPresent()) {
+        if (service.findByUrl(contentResponse.getUrl()).isPresent()) {
             errors.rejectValue("url", "", "This content already in db");
         }
     }

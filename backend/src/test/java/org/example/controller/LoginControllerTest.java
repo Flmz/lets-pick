@@ -48,7 +48,7 @@ public class LoginControllerTest {
         mockMvc.perform(post("/login"))
                 .andExpect(status().isCreated())
                 .andDo(print());
-        User user = userRepository.findById(1L).get();
+        User user = userRepository.findById(1L).orElseThrow();
         assertNotNull(user);
         assertEquals(user.getId(), 1L);
     }
@@ -74,8 +74,8 @@ public class LoginControllerTest {
         saveContent();
         mockMvc.perform(post("/login"))
                 .andExpect(status().isCreated());
-        User user = userRepository.findById(1L).get();
-        List<Content> userContent = contentRepository.findNotWatchedContentByUserId(user.getId(), getRandomType().name());
+        User user = userRepository.findById(1L).orElseThrow();
+        List<Content> userContent = contentRepository.findNotWatchedContentByUserId(user.getId(), getRandomType().name(), 2);
         assertNotNull(userContent);
     }
 

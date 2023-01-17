@@ -3,11 +3,13 @@ package org.example.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
+@Setter
 @NoArgsConstructor
 @Getter
 @Entity
@@ -27,3 +29,4 @@ public class User {
         this.cookie = cookie;
     }
 }
+

@@ -1,14 +1,15 @@
 package org.example.strategy.publish;
 
-import org.example.dto.ContentResponse;
+import org.example.model.Content;
+import org.example.model.User;
+import org.example.model.enums.GameType;
 
 import java.util.List;
 
+
 public interface PublisherSelector {
-    List<ContentResponse> findContentForView(Long currentUserId, String requestedUserContentType
-            , List<ContentResponse> watchedContent);
 
-    List<ContentResponse> findContentForView(Long currentUserId, String requestedUserContentType);
+    List<Content> findContentForUser(User currentUser, String contentTypeRequest);
 
-    PublisherSelectType getStrategyType();
+    GameType getStrategyType();
 }

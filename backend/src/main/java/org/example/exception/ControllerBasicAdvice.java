@@ -10,7 +10,7 @@ public class ControllerBasicAdvice {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exc) {
-        ErrorResponse errorResponse = new ErrorResponse(exc.getMessage(), System.currentTimeMillis());
+        ErrorResponse errorResponse = new ErrorResponse(exc.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 }

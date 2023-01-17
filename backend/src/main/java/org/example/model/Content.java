@@ -1,27 +1,20 @@
 package org.example.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.model.enums.ContentType;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode(of = "url")
+@Data
 @Entity
 @Table
-@NaturalIdCache
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Content {
 
     @Id
@@ -33,7 +26,6 @@ public class Content {
     private ContentType type;
 
     @NotNull(message = "content url cannot be null")
-    @NaturalId
     @Column(unique = true, nullable = false)
     private String url;
 }

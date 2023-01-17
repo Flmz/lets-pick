@@ -1,19 +1,23 @@
 package org.example.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.model.enums.ContentType;
 
 import javax.validation.constraints.NotNull;
 
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ContentResponse {
     @JsonProperty("url")
     @NotNull
-    String url;
+    private String url;
 
     @JsonProperty("type")
-    ContentType type;
+    private ContentType type;
 }

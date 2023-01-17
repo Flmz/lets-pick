@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ContentMapper {
 
-    ContentMapper CONTENT_MAPPER = Mappers.getMapper(ContentMapper.class);
+    ContentMapper INSTANCE = Mappers.getMapper(ContentMapper.class);
 
     @Mapping(target = "id", ignore = true)
     Content toEntity(ContentResponse contentResponse);

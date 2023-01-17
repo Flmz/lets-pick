@@ -32,8 +32,8 @@ public class LoginController {
     }
 
     @ExceptionHandler(BadCookieCredentialsException.class)
-    public ResponseEntity<ErrorResponse> handleBadCookieCredentialsException(BadCookieCredentialsException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(exception.getMessage(), System.currentTimeMillis());
-        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleBadCookieCredentialsException(BadCookieCredentialsException exception) {
+        return new ErrorResponse(exception.getMessage());
     }
 }
